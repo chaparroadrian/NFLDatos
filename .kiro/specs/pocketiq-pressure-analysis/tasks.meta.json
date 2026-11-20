@@ -1,0 +1,542 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Implement the complete Pydantic request and response models in `backend/schemas.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563541
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198571345
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198699446
+      }
+    ],
+    "1.2 Define dashboard API types and formatting helpers in `dashboard/src/types.ts` and `dashboard/src/format.ts`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563576
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198571459
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198699533
+      }
+    ],
+    "2.1 Implement foundational pure rules and safe serialization in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563611
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198709713
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198813438
+      }
+    ],
+    "2.2 Implement startup CSV loading, required-column checks and validation logging in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563649
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198819331
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198914382
+      }
+    ],
+    "2.3 Construct the one-row-per-play analytical table and PFF aggregates in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563698
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198922586
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199044787
+      }
+    ],
+    "3.1 Implement per-game tracking ingestion and integrity checks in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563823
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199052219
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199230192
+      }
+    ],
+    "3.2 Implement event windows, threat metrics, sectors and clipped trajectories in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563861
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199239756
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199372244
+      }
+    ],
+    "3.3 Implement static and contextual protection diagnoses in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563893
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199379118
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199541253
+      }
+    ],
+    "3.4 Implement atomic per-opponent tracking cache and bounded result cache in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563927
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199550597
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199730466
+      }
+    ],
+    "4.1 Implement conjunctive filtering and complete analysis response assembly in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563959
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199749049
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199935508
+      }
+    ],
+    "4.2 Implement protection-response comparisons in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198563994
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199947781
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200092502
+      }
+    ],
+    "4.3 Implement deterministic representative-play selection and play detail in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564036
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200125202
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200354042
+      }
+    ],
+    "4.4 Implement the deterministic executive summary and six-section scouting report in `backend/analytics.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564066
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200364306
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200560222
+      }
+    ],
+    "5.1 Implement lifecycle, routes and error handling in `backend/main.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564106
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200584175
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200757263
+      }
+    ],
+    "5.2 Implement safe static build serving and API fallback behavior in `backend/main.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564144
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200787564
+      }
+    ],
+    "6.1 Implement lazy Bedrock Converse infrastructure and AI context construction in `backend/ai.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564177
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200584044
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200757402
+      }
+    ],
+    "6.2 Implement trends and diagnosis validation flows in `backend/ai.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564210
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200787660
+      }
+    ],
+    "6.3 Implement Nova scouting-report validation and fallback in `backend/ai.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564241
+      }
+    ],
+    "6.4 Wire the three AI POST endpoints into `backend/main.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564275
+      }
+    ],
+    "7.1 Configure Vite, Tailwind CSS 3 and global responsive styles": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564310
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198709808
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198813488
+      }
+    ],
+    "7.2 Implement the relative-path API client in `dashboard/src/api.ts`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564342
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198819445
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198914338
+      }
+    ],
+    "7.3 Implement shared sample, source, warning, loading, empty and error components": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564374
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198922699
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199044990
+      }
+    ],
+    "7.4 Implement header and responsive filter controls": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564446
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199052258
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199230272
+      }
+    ],
+    "7.5 Implement executive summary, metric cards and five-sector SVG pressure map": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564533
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199239712
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199372289
+      }
+    ],
+    "8.1 Implement defensive trends charts and diagnosis table": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564566
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199379181
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199541389
+      }
+    ],
+    "8.2 Implement sortable protection-response tables": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564599
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199550641
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199730517
+      }
+    ],
+    "8.3 Implement representative plays and tracking detail modal": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564631
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199748994
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199935555
+      }
+    ],
+    "8.4 Wire all non-AI panels and state transitions in `dashboard/src/App.tsx`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564666
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200364352
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200560286
+      }
+    ],
+    "9.1 Implement independent AI action state and trends/diagnosis views": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564703
+      }
+    ],
+    "9.2 Implement the scouting report view and browser actions": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564732
+      }
+    ],
+    "9.3 Integrate the AI panel into `dashboard/src/App.tsx`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564767
+      }
+    ],
+    "10.1 Implement `backend/export_executive_summary.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564804
+      }
+    ],
+    "10.3 Update `README.md` with verified real findings and execution instructions": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564834
+      }
+    ],
+    "11.1 Implement in-memory analytics and API fixtures in `tests/conftest.py`": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564864
+      }
+    ],
+    "15. Checkpoint - Ensure all tests pass": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198564895
+      }
+    ],
+    "1. Define shared backend and dashboard contracts": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795198699581
+      }
+    ],
+    "2. Build pure analytics and the play-level PFF table": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199044949
+      }
+    ],
+    "7. Build dashboard foundations and core analysis panels": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199372327
+      }
+    ],
+    "3. Add incremental tracking, spatial metrics and diagnoses": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795199730593
+      }
+    ],
+    "4. Build analysis results, detail views and deterministic reports": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200560339
+      }
+    ],
+    "8. Add advanced analysis and play-review panels": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200560529
+      }
+    ]
+  }
+}
