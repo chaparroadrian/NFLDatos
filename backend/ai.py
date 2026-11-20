@@ -11,6 +11,7 @@ from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
 import json
 import logging
 import os
+import re
 import threading
 from typing import Any
 
@@ -298,7 +299,13 @@ from decimal import Decimal, InvalidOperation, ROUND_HALF_EVEN, ROUND_HALF_UP
 from pydantic import ValidationError
 
 from backend.analytics import forbidden_language
-from backend.schemas import DiagnosisLLMOutput, TrendsLLMOutput
+from backend.schemas import (
+    DiagnosisLLMOutput,
+    Recommendation,
+    REPORT_SECTION_TITLES,
+    ScoutingReport,
+    TrendsLLMOutput,
+)
 
 
 AI_UNAVAILABLE_REASON = (
@@ -308,6 +315,8 @@ AI_UNAVAILABLE_REASON = (
 TRENDS_PROMPT = """Eres un analista de tendencias de fútbol americano. Responde en español y solo con un objeto JSON con esta forma: {\"text\": \"...\", \"facts\": [{\"field\": \"ruta exacta\", \"value\": valor, \"source\": \"observada|PFF|inferida\", \"text\": \"...\"}]}. Usa como números únicamente valores presentes en fields y cita su ruta exacta. Describe relaciones solo como asociaciones observadas en esta muestra. No uses afirmaciones causales, superlativos ni estas expresiones: causa, causó, evita, garantiza, la mejor, la peor, esta formación evita la presión, el tackle causó el sack, esta es la mejor jugada."""
 
 DIAGNOSIS_PROMPT = """Eres un asistente de diagnóstico de fútbol americano. Responde en español y solo con un objeto JSON con esta forma: {\"hechos\": [{\"text\": \"...\", \"field\": \"ruta exacta\", \"value\": valor, \"source\": \"observada|PFF|inferida\"}], \"hipotesis\": [{\"text\": \"...\"}]}. Clasifica como hecho solo una afirmación respaldada por un campo de fields y cita su ruta, valor y fuente. Clasifica como hipótesis toda explicación no confirmada por fields. Trata las inferencias como posibles o heurísticas. No atribuyas culpa definitiva a jugadores. No uses responsable, culpable, falló, causa, causó, evita, garantiza, la mejor ni la peor."""
+
+SCOUTING_PROMPT = """Eres un generador de scouting report de fútbol americano. Responde en español y solo con un objeto JSON {\"sections\": [...]} con exactamente seis secciones en este orden: Resumen de tendencias, Cómo entra la presión, Diagnóstico de protección, Recomendaciones ofensivas, Jugadas comparables y Limitaciones. Cada sección lleva title, text, items y languageWarning. En Recomendaciones ofensivas, cada item lleva text, label, dimension, alternative, n, quality y citedPlays con gameId y playId. Usa únicamente alternativas, conteos, calidades y jugadas presentes en el contexto. Describe asociaciones de esta muestra sin afirmar causalidad. No uses causa, causó, evita, garantiza, la mejor, la peor, esta formación evita la presión, el tackle causó el sack ni esta es la mejor jugada."""
 
 
 class PlayNotFoundError(LookupError):
@@ -570,5 +579,307 @@ def diagnosis(
             "text": None,
             "hechos": hechos,
             "hipotesis": hipotesis,
+        }
+    )
+
+
+# Structured scouting-report flow ------------------------------------------
+
+
+def _recommendation_values(item: Any) -> dict[str, Any]:
+    """Return one recommendation as ordinary values for semantic validation."""
+
+    if hasattr(item, "model_dump"):
+        return item.model_dump()
+    if isinstance(item, Mapping):
+        return dict(item)
+    raise TypeError("la recomendación no tiene una estructura válida")
+
+
+def _supported_alternatives(result: Mapping[str, Any]) -> dict[tuple[str, str], Mapping[str, Any]]:
+    """Index the exact protection alternatives calculated by analytics."""
+
+    supported: dict[tuple[str, str], Mapping[str, Any]] = {}
+    dimensions = result.get("protectionResponses", [])
+    if not isinstance(dimensions, list):
+        return supported
+    for dimension in dimensions:
+        if not isinstance(dimension, Mapping):
+            continue
+        dimension_name = dimension.get("dimension")
+        alternatives = dimension.get("alternatives", [])
+        if dimension_name is None or not isinstance(alternatives, list):
+            continue
+        for alternative in alternatives:
+            if isinstance(alternative, Mapping) and alternative.get("value") is not None:
+                supported[(str(dimension_name), str(alternative["value"]))] = alternative
+    return supported
+
+
+def _representative_play_keys(result: Mapping[str, Any]) -> set[tuple[int, int]]:
+    keys: set[tuple[int, int]] = set()
+    plays = result.get("representativePlays", [])
+    if not isinstance(plays, list):
+        return keys
+    for play in plays:
+        if not isinstance(play, Mapping):
+            continue
+        try:
+            keys.add((int(play["gameId"]), int(play["playId"])))
+        except (KeyError, TypeError, ValueError, OverflowError):
+            continue
+    return keys
+
+
+def _filtered_play_keys(engine: Any, filters: Any) -> set[tuple[int, int]]:
+    """Recover the exact filtered sample keys without exposing them in the API result."""
+
+    try:
+        # These are the canonical analytics filtering functions. Reusing them avoids a
+        # second, subtly different interpretation of exact-distance and null filters.
+        from backend.analytics import _filter_table, _normalized_filters
+
+        normalized = _normalized_filters(filters)
+        table, _tracking = engine.rival_table(normalized.opponent)
+        sample = _filter_table(table, normalized)
+        return {
+            (int(game_id), int(play_id))
+            for game_id, play_id in sample[["gameId", "playId"]].itertuples(
+                index=False, name=None
+            )
+        }
+    except (AttributeError, KeyError, TypeError, ValueError):
+        # Small fake engines used by callers may expose only analyze(). In that case,
+        # representative plays remain the only sample membership proof available.
+        return set()
+
+
+def _without_recommendation_word(text: str) -> str:
+    cleaned = re.sub(
+        r"(?i)(?<!\w)recomendaci[oó]n(?:es)?(?!\w)",
+        "observación",
+        text,
+    )
+    return re.sub(r"\s+([,.;:])", r"\1", re.sub(r"\s{2,}", " ", cleaned)).strip()
+
+
+def validate_recommendations(
+    items: Any,
+    result: Mapping[str, Any],
+    valid_play_keys: set[tuple[int, int]] | None = None,
+) -> tuple[list[dict[str, Any]], int]:
+    """Keep only recommendations backed by an exact alternative and real play."""
+
+    supported = _supported_alternatives(result)
+    valid_keys = _representative_play_keys(result)
+    if valid_play_keys:
+        valid_keys.update(valid_play_keys)
+    source_items = items if isinstance(items, list) else list(items)
+    validated: list[dict[str, Any]] = []
+
+    for item in source_items:
+        try:
+            values = _recommendation_values(item)
+        except (TypeError, ValueError):
+            continue
+        alternative = supported.get(
+            (str(values.get("dimension", "")), str(values.get("alternative", "")))
+        )
+        if (
+            alternative is None
+            or values.get("n") != alternative.get("plays")
+            or values.get("quality") != alternative.get("quality")
+        ):
+            continue
+
+        cited: set[tuple[int, int]] = set()
+        cited_plays = values.get("citedPlays", [])
+        if isinstance(cited_plays, list):
+            for play in cited_plays:
+                play_values = (
+                    play.model_dump() if hasattr(play, "model_dump") else play
+                )
+                if not isinstance(play_values, Mapping):
+                    continue
+                try:
+                    key = (int(play_values["gameId"]), int(play_values["playId"]))
+                except (KeyError, TypeError, ValueError, OverflowError):
+                    continue
+                if key in valid_keys:
+                    cited.add(key)
+        if not cited:
+            continue
+
+        plays = int(alternative["plays"])
+        values["n"] = plays
+        values["quality"] = alternative["quality"]
+        values["citedPlays"] = [
+            {"gameId": game_id, "playId": play_id}
+            for game_id, play_id in sorted(cited)
+        ]
+        if plays < 30:
+            values["label"] = "observación con muestra pequeña"
+            values["text"] = _without_recommendation_word(str(values.get("text", "")))
+        else:
+            values["label"] = "recomendación"
+        try:
+            validated.append(
+                json_safe(Recommendation.model_validate(values).model_dump())
+            )
+        except ValidationError:
+            continue
+
+    return validated, len(source_items) - len(validated)
+
+
+def _parse_nova_report(raw: Any) -> dict[str, Any]:
+    """Validate the six-section shell while leaving recommendations removable."""
+
+    if not isinstance(raw, Mapping) or not isinstance(raw.get("sections"), list):
+        raise ValueError("reporte de IA no válido")
+    sections = raw["sections"]
+    if len(sections) != len(REPORT_SECTION_TITLES):
+        raise ValueError("reporte de IA no válido")
+
+    parsed: list[dict[str, Any]] = []
+    for expected_title, section in zip(REPORT_SECTION_TITLES, sections, strict=True):
+        if not isinstance(section, Mapping) or section.get("title") != expected_title:
+            raise ValueError("reporte de IA no válido")
+        text = section.get("text")
+        if not isinstance(text, str):
+            raise ValueError("reporte de IA no válido")
+        items = section.get("items")
+        if expected_title == "Recomendaciones ofensivas":
+            if not isinstance(items, list):
+                raise ValueError("reporte de IA no válido")
+        else:
+            items = None
+        parsed.append(
+            {
+                "title": expected_title,
+                "text": text,
+                "items": items,
+                "languageWarning": False,
+            }
+        )
+    return {"sections": parsed}
+
+
+def _section_has_forbidden_language(section: Mapping[str, Any]) -> bool:
+    texts = [str(section.get("text", ""))]
+    items = section.get("items")
+    if isinstance(items, list):
+        texts.extend(
+            str(item.get("text", ""))
+            for item in items
+            if isinstance(item, Mapping)
+        )
+    return any(forbidden_language(text) for text in texts)
+
+
+def _limitations_text(result: Mapping[str, Any], removed: int) -> str:
+    sample = result.get("sample", {})
+    quality = sample.get("quality", "insuficiente") if isinstance(sample, Mapping) else "insuficiente"
+    plays = sample.get("plays", 0) if isinstance(sample, Mapping) else 0
+    return (
+        f"Calidad de muestra: {quality} (n = {plays}). Los Diagnósticos con fuente "
+        "inferida no son asignaciones confirmadas por el equipo ni por video y "
+        f"requiere validación en video. Elementos retirados: {removed}."
+    )
+
+
+def _assemble_scouting_report(
+    raw: Mapping[str, Any],
+    result: Mapping[str, Any],
+    recommendations: list[dict[str, Any]],
+    removed: int,
+) -> dict[str, Any]:
+    """Assemble fixed sections while deriving citations and limitations in Python."""
+
+    raw_by_title = {
+        str(section["title"]): dict(section)
+        for section in raw["sections"]
+        if isinstance(section, Mapping)
+    }
+    comparable_keys = _representative_play_keys(result)
+    for recommendation in recommendations:
+        comparable_keys.update(
+            (int(play["gameId"]), int(play["playId"]))
+            for play in recommendation["citedPlays"]
+        )
+
+    sections: list[dict[str, Any]] = []
+    for title in REPORT_SECTION_TITLES:
+        source = raw_by_title[title]
+        if title == "Recomendaciones ofensivas":
+            source["items"] = recommendations
+        elif title == "Jugadas comparables":
+            source["items"] = [
+                {"gameId": game_id, "playId": play_id}
+                for game_id, play_id in sorted(comparable_keys)
+            ]
+        elif title == "Limitaciones":
+            source["text"] = _limitations_text(result, removed)
+            source["items"] = None
+        source["languageWarning"] = _section_has_forbidden_language(source)
+        sections.append(json_safe(source))
+    return {"sections": sections}
+
+
+def scouting_report(engine: Any, filters: Any) -> dict[str, Any]:
+    """Return a validated Nova report or the deterministic analytics fallback."""
+
+    result = engine.analyze(filters)
+    sample = _sample_from_result(result)
+    deterministic = engine.scouting_report_deterministic(result)
+    if int(sample.get("plays", 0)) == 0:
+        return json_safe(
+            {
+                "available": True,
+                "generatedBy": "sin IA",
+                "modelId": None,
+                "status": None,
+                "reason": None,
+                "sample": sample,
+                "report": deterministic,
+            }
+        )
+
+    context = build_context(result)
+    try:
+        raw = _parse_nova_report(invoke_nova(SCOUTING_PROMPT, context))
+        recommendation_section = next(
+            section for section in raw["sections"]
+            if section["title"] == "Recomendaciones ofensivas"
+        )
+        recommendations, removed = validate_recommendations(
+            recommendation_section["items"] or [],
+            result,
+            _filtered_play_keys(engine, filters),
+        )
+        report = _assemble_scouting_report(raw, result, recommendations, removed)
+        ScoutingReport.model_validate(report)
+    except (AIUnavailableError, ValidationError, StopIteration, TypeError, ValueError):
+        return json_safe(
+            {
+                "available": False,
+                "generatedBy": "sin IA",
+                "modelId": None,
+                "status": "IA no disponible",
+                "reason": AI_UNAVAILABLE_REASON,
+                "sample": sample,
+                "report": deterministic,
+            }
+        )
+
+    return json_safe(
+        {
+            "available": True,
+            "generatedBy": "Amazon Nova",
+            "modelId": model_id(),
+            "status": None,
+            "reason": None,
+            "sample": sample,
+            "report": report,
         }
     )

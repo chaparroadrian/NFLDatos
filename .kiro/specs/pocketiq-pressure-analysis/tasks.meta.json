@@ -249,6 +249,11 @@
         "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
         "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
         "timestamp": 1795200787564
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200968090
       }
     ],
     "6.1 Implement lazy Bedrock Converse infrastructure and AI context construction in `backend/ai.py`": [
@@ -278,6 +283,11 @@
         "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
         "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
         "timestamp": 1795200787660
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200968200
       }
     ],
     "6.3 Implement Nova scouting-report validation and fallback in `backend/ai.py`": [
@@ -285,6 +295,16 @@
         "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
         "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
         "timestamp": 1795198564241
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200985607
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795201349107
       }
     ],
     "6.4 Wire the three AI POST endpoints into `backend/main.py`": [
@@ -292,6 +312,11 @@
         "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
         "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
         "timestamp": 1795198564275
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795201385192
       }
     ],
     "7.1 Configure Vite, Tailwind CSS 3 and global responsive styles": [
@@ -452,6 +477,16 @@
         "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
         "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
         "timestamp": 1795198564703
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200985677
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795201349235
       }
     ],
     "9.2 Implement the scouting report view and browser actions": [
@@ -459,6 +494,16 @@
         "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
         "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
         "timestamp": 1795198564732
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795201385156
+      },
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795201757114
       }
     ],
     "9.3 Integrate the AI panel into `dashboard/src/App.tsx`": [
@@ -536,6 +581,13 @@
         "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
         "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
         "timestamp": 1795200560529
+      }
+    ],
+    "5. Expose the FastAPI application and same-origin dashboard": [
+      {
+        "executionId": "614247a7-3b29-487b-bef6-d78948c46c53",
+        "chatSessionId": "sess_ac8b6fd8-acaa-4829-ae2c-b4ad20b86414",
+        "timestamp": 1795200968128
       }
     ]
   }

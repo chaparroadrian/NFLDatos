@@ -62,12 +62,12 @@ Implement PocketIQ incrementally in Python 3.12 and TypeScript using the approve
     - Generate stable Spanish text, small/empty-sample variants, cautious association language, validated citations and all six report sections without external services.
     - _Requirements: 10.6, 16.1–16.8, 20.3, 27.2–27.6, 27.8, 27.10, 27.11, 27.13, 27.14_
 
-- [ ] 5. Expose the FastAPI application and same-origin dashboard
+- [x] 5. Expose the FastAPI application and same-origin dashboard
   - [x] 5.1 Implement lifecycle, routes and error handling in `backend/main.py`
     - Place and execute the exact manual `cargar_env()` block from `.kiro/steering/rules.md` before importing `backend.ai`; do not add `python-dotenv` or inspect credential variables in backend code.
     - Initialize the engine in lifespan and expose exact health, filters, analysis, play-detail and opponent-status behavior with safe 404, 422 and 500 JSON responses.
     - _Requirements: 1.1–1.3, 1.6, 2.3, 2.13–2.15, 6.6, 13.1, 13.9–13.11, 14.1–14.10, 15.1, 15.4, 15.7, 23.7, 24.4, 24.5, 24.15_
-  - [-] 5.2 Implement safe static build serving and API fallback behavior in `backend/main.py`
+  - [x] 5.2 Implement safe static build serving and API fallback behavior in `backend/main.py`
     - Serve existing files and SPA fallback from `dashboard/dist` without requiring the directory at startup, block path traversal, and ensure unknown `/api/` routes always return JSON 404.
     - _Requirements: 1.4–1.6, 21.8, 23.7_
 
@@ -76,13 +76,13 @@ Implement PocketIQ incrementally in Python 3.12 and TypeScript using the approve
     - Use only `AWS_REGION` with default `us-east-1`, model default `us.amazon.nova-pro-v1:0`, `boto3.client("bedrock-runtime", region_name=region, config=...)`, bounded timeouts and a replaceable client factory.
     - Never read or verify credential variables, pass credentials to boto3, embed environment values, send raw tracking, create a client at import, or call another AWS service.
     - _Requirements: 24.1–24.6, 24.8, 24.12–24.15, 25.3, 26.4_
-  - [-] 6.2 Implement trends and diagnosis validation flows in `backend/ai.py`
+  - [x] 6.2 Implement trends and diagnosis validation flows in `backend/ai.py`
     - Parse structured Converse output, verify cited facts against flattened analytics context, correct sources, move unsupported diagnosis facts to hypotheses, mark cautious-language issues and return deterministic empty/failure responses.
     - _Requirements: 24.9–24.11, 25.3–25.12, 26.3–26.13_
-  - [~] 6.3 Implement Nova scouting-report validation and fallback in `backend/ai.py`
+  - [x] 6.3 Implement Nova scouting-report validation and fallback in `backend/ai.py`
     - Validate alternative support, sample quality and cited plays; remove unsupported recommendations; merge comparable plays deterministically; and return the analytics-generated report whenever Nova is unavailable or n is zero.
     - _Requirements: 24.9, 24.10, 27.1–27.14_
-  - [~] 6.4 Wire the three AI POST endpoints into `backend/main.py`
+  - [-] 6.4 Wire the three AI POST endpoints into `backend/main.py`
     - Reuse the strict schemas and analytics engine, preserve non-AI behavior during every AI failure, and keep all generated AI text isolated under `/api/ai/`.
     - _Requirements: 16.9, 24.7, 24.9–24.11, 25.1, 25.2, 26.1–26.3, 27.1, 27.12_
 
@@ -118,10 +118,10 @@ Implement PocketIQ incrementally in Python 3.12 and TypeScript using the approve
     - _Requirements: 10.7, 10.8, 13.3, 13.8, 13.11, 14.7, 14.10, 17.11, 18.7, 20.9_
 
 - [ ] 9. Add the AI dashboard panel
-  - [~] 9.1 Implement independent AI action state and trends/diagnosis views
+  - [x] 9.1 Implement independent AI action state and trends/diagnosis views
     - Provide the three controls, independent loading/results, facts and hypotheses, source/sample labels, warnings, cited-play detail links, retries and non-destructive failure behavior.
     - _Requirements: 25.10, 28.1–28.9, 28.13, 28.14_
-  - [~] 9.2 Implement the scouting report view and browser actions
+  - [x] 9.2 Implement the scouting report view and browser actions
     - Render all six ordered sections, distinguish Amazon Nova from deterministic fallback, copy with failure notice, and print through native browser APIs.
     - _Requirements: 27.2, 28.5, 28.10–28.14_
   - [~] 9.3 Integrate the AI panel into `dashboard/src/App.tsx`

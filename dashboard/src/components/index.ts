@@ -3,6 +3,14 @@ export { CoreAnalysisPanels, ExecutiveSummary, MetricCards, PressureMapSVG } fro
 export { DefensiveTrends, DiagnosisTable, TrendsCharts } from './DefensiveTrends'
 export { ProtectionResponsesTable, sortProtectionAlternatives } from './ProtectionResponsesTable'
 export { PlayDetailModal, RepresentativePlays } from './RepresentativePlays'
+export {
+  AIPanel,
+  CitedPlayButton,
+  DiagnosisResult,
+  ScoutingReportView,
+  TrendsResult,
+  scoutingReportText,
+} from './AIPanel'
 export { Header } from './Header'
 export {
   DiagnosisDisclaimer,
