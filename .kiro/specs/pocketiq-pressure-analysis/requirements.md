@@ -1,6 +1,6 @@
-# Documento de requisitos
+# Requirements Document
 
-## Introducción
+## Introduction
 
 PocketIQ ("¿Cómo nos va a atacar esta defensa?") es una aplicación web para que un entrenador ofensivo estudie las tendencias de presión de un rival defensivo, entienda por dónde y cuándo entra la presión y compare las respuestas de protección observadas. La aplicación usa los datos del NFL Big Data Bowl (temporada 2021, semanas 1 a 8): contexto de jugada, etiquetas de PFF y tracking cuadro por cuadro.
 
@@ -18,7 +18,7 @@ El stack, la estructura de carpetas y el contrato de despliegue siguen `.kiro/st
 4. **Varios cuadros de snap.** Cuando una jugada tiene más de un cuadro con el evento de snap elegido, se toma el primer cuadro (menor `frameId`) de ese evento. Este criterio es un supuesto del documento y se puede revisar en el diseño.
 5. **Umbrales contextuales.** Los umbrales "timeToThrow alto respecto de comparables" y "amenaza tras umbral contextual" (Requisito 12) se fijarán en el diseño a partir de percentiles de la muestra filtrada; este documento solo exige que sean deterministas y documentados.
 
-## Glosario
+## Glossary
 
 - **PocketIQ**: La aplicación web completa (Backend más Dashboard) servida desde una sola URL y puerto.
 - **Backend**: Aplicación FastAPI definida en `backend/main.py`, que expone `app`, `GET /health`, la API bajo `/api/...` y sirve el build de `dashboard/dist`.
@@ -52,7 +52,7 @@ El stack, la estructura de carpetas y el contrato de despliegue siguen `.kiro/st
 - **Banda_Distancia**: Clasificación de `yardsToGo` definida en el Requisito 6.
 - **Zona_Campo**: Clasificación de la posición del balón definida en el Requisito 5.
 
-## Requisitos
+## Requirements
 
 ### Requisito 1: Estructura, despliegue y rutas
 
